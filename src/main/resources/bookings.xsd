@@ -1,0 +1,94 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://liferay.com/samples/fbo/bookings-web-service"
+           targetNamespace="http://liferay.com/samples/fbo/bookings-web-service" elementFormDefault="qualified">
+
+    <xs:element name="initBookingRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="bookingInformation" type="tns:bookingInformation"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="initBookingResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="booking" type="tns:booking"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="listBookingsRequest">
+	    <xs:complexType>
+	        <xs:sequence>
+	            <xs:element name="startingItem" type="xs:integer" />
+	            <xs:element name="numberOfItems" type="xs:integer" />
+	        </xs:sequence>
+	    </xs:complexType>    
+    </xs:element>
+
+    <xs:element name="listBookingsResponse">
+	    <xs:complexType>
+	        <xs:sequence>
+	            <xs:element name="bookingId" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+	        </xs:sequence>
+	    </xs:complexType>    
+    </xs:element>
+
+    <xs:element name="checkBookingStatusRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="bookingId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="checkBookingStatusResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="booking" type="tns:booking"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="updateBookingStatusRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="bookingId" type="xs:string"/>
+                <xs:element name="bookingStatus" type="tns:bookingStatusEnum"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="updateBookingStatusResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="booking" type="tns:booking"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="bookingInformation">
+        <xs:sequence>
+            <xs:element name="arrivalDate" type="xs:date"/>
+            <xs:element name="departureDate" type="xs:date"/>
+            <xs:element name="city" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="booking">
+        <xs:sequence>
+            <xs:element name="bookingInformation" type="tns:bookingInformation"/>
+            <xs:element name="bookingId" type="xs:string"/>
+            <xs:element name="bookingStatus" type="tns:bookingStatusEnum"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="bookingStatusEnum">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="PENDING"/>
+            <xs:enumeration value="VALIDATED"/>
+            <xs:enumeration value="CANCELLED"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+</xs:schema>
